@@ -10,15 +10,13 @@ registration — the smallest thing that works.
 
 ## Setup
 
-1. Free key at <https://opencode.ai/auth>, Telegram token from @BotFather.
-2. `bash setup-free.sh` — seeds `.env` and exits.
-3. Fill `OPENCODE_API_KEY` and `TELEGRAM_BOT_TOKEN` in `.env`.
-4. `bash setup-free.sh` again — runs the full install.
+1. Get a free key at <https://opencode.ai/auth>.
+2. `bash setup-free.sh` — seeds `.env`, prompts you to paste the key, then runs
+   the full install (Docker, OneCLI, container build, channel pairing).
 
 The wrapper sets `NANOCLAW_PICKED_PROVIDER=opencode` and skips the Claude
-sign-in + the claude-based timezone step. OneCLI still installs (the container
-spawn gate requires it), but the model key is passed straight to OpenCode, not
-through the vault.
+sign-in step. OneCLI still installs (the container spawn gate requires it), but
+the model key is passed straight to OpenCode, not through the vault.
 
 ## How the key reaches the model (the fix)
 
