@@ -1,0 +1,12 @@
+{
+  "mcpServers": {},
+  "packages": {
+    "apt": [],
+    "npm": []
+  },
+  "additionalMounts": [],
+  "skills": "all",
+  "groupName": "測試",
+  "assistantName": "測試",
+  "agentGroupId": "ag-1783055837533-t1buo5"
+}

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {},
+  "packages": {
+    "apt": [],
+    "npm": []
+  },
+  "additionalMounts": [],
+  "skills": "all",
+  "provider": "opencode",
+  "groupName": "歐皮(ohpi)",
+  "assistantName": "歐皮(ohpi)",
+  "agentGroupId": "ag-1781913318613-ktfam2"
+}

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {},
+  "packages": {
+    "apt": [],
+    "npm": []
+  },
+  "additionalMounts": [],
+  "skills": "all",
+  "provider": "opencode",
+  "groupName": "WTF",
+  "assistantName": "WTF",
+  "agentGroupId": "ag-1782788446382-8kvqae"
+}
