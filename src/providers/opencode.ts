@@ -64,6 +64,12 @@ function mergeNoProxy(current: string | undefined, additions: string): string {
 
 registerProviderContainerConfig('opencode', (ctx) => {
   const opencodeDir = path.join(ctx.sessionDir, 'opencode-xdg');
+  // Wipe stale OpenCode session data from the previous container so the new
+  // server starts clean. The prior container may have been killed (SIGKILL by
+  // host-sweep ceiling) while mid-turn, leaving orphan session files in an
+  // inconsistent state — resuming them causes the provider's 300s idle timeout
+  // loop (session stuck waiting for a tool result that never completes).
+  fs.rmSync(opencodeDir, { recursive: true, force: true });
   fs.mkdirSync(opencodeDir, { recursive: true });
 
   // Resolve config from .env (file) with a process.env override -- the host

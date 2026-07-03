@@ -44,6 +44,7 @@ import {
   heartbeatPath,
   markContainerRunning,
   markContainerStopped,
+  openOutboundDbRw,
   sessionDir,
   writeSessionRouting,
 } from './session-manager.js';
@@ -162,6 +163,17 @@ async function spawnContainer(session: Session): Promise<void> {
   // (host-sweep.ts line 87). Without this, the stale mtime can trigger an
   // immediate kill before the new container touches the file itself.
   fs.rmSync(heartbeatPath(agentGroup.id, session.id), { force: true });
+
+  // Clear stale provider session state from the previous container so the
+  // new one doesn't try to resume a corrupted/stuck session (e.g. OpenCode
+  // session left mid-turn after a SIGKILL by the host-sweep ceiling).
+  try {
+    const outDb = openOutboundDbRw(agentGroup.id, session.id);
+    outDb.prepare("DELETE FROM session_state WHERE key LIKE 'continuation:%'").run();
+    outDb.close();
+  } catch {
+    // outbound.db or session_state table may not exist yet on first spawn
+  }
 
   const container = spawn(CONTAINER_RUNTIME_BIN, args, { stdio: ['ignore', 'pipe', 'pipe'] });
 
